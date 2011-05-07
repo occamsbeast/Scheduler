@@ -1,0 +1,15 @@
+K 10
+svn:ignore
+V 96
+.project
+.pydevproject
+*.pyc
+*.DS_Store
+*.pyo
+*.egg
+*.egg-info*
+*PKG-INFO
+database.zcml
+*.pt.py
+
+END

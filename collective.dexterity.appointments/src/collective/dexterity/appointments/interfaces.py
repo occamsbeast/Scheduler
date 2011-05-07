@@ -1,0 +1,239 @@
+# encoding: utf-8
+import datetime
+import calendar
+from DateTime import DateTime
+from five import grok
+from zope import schema, interface
+from zope.interface import invariant, Invalid
+from plone.directives import form
+from Products.CMFCore.utils import getToolByName
+from Products.CMFCalendar.interfaces import IEvent
+from collective.dexterity.appointments import MessageFactory as _
+from collective.dexterity.more_widgets.widgets import YesNoFieldWidget
+
+
+
+class StartBeforeEnd(Invalid):
+    __doc__ = _(u"The start or end date is invalid")
+
+class NoContactInfo(Invalid):
+    __doc__ = _(u"Some contact info must be given")
+
+
+from Products.validation import validation, validators
+
+from Products.CMFDefault.utils import checkEmailAddress
+from Products.CMFDefault.exceptions import EmailAddressInvalid
+
+class InvalidEmailAddress(schema.ValidationError):
+    """
+    You have entered an invalid email address. Please try again.
+    """
+
+class InvalidPhoneNumber(schema.ValidationError):
+    """
+    You have entered an invalid phone number. US phone numbers should be
+    entered (123) 456-7890. International numbers require the country code.
+    Use an 'x' to denote an extension.
+    """
+
+def validateEmailAddress(value):
+    """
+    Validate the email address. See Products.CMFDefault.utils.checkEmailAddress
+    for specifics.
+    """
+    if len(str(value)) != 0:
+        try:
+            checkEmailAddress(value)
+        except EmailAddressInvalid:
+            raise InvalidEmailAddress(value)
+    return True
+
+def validatePhoneNumber(value):
+    """
+    Validate the Phone number. To support extensions and international numbers,
+    this validator isn't very strict.
+    """
+    phoneValidator = validators.RegexValidator(
+                                    'isInternationalPhoneNumber',
+                                     r'^\d+$',
+                                     ignore='[\(\)\-\s\+x]',
+                                     title='',
+                                     description='',
+                                     errmsg=_(u'is not a valid phone number.')
+                     )
+    if len(str(value)) == 0 or phoneValidator(str(value)) !=1 or len(str(value)) < 7:
+        raise InvalidPhoneNumber(value)
+    return True
+
+class ISignupSheet(form.Schema):
+    form.widget(allow_multiple_signup=YesNoFieldWidget)
+    allow_multiple_signup = schema.Bool(
+        title = _(u"Allow signup for multiple slots"),
+        description=_(u"Allow the user to signup for more than one slot."),
+        default=False,
+        )
+        
+    form.widget(allow_multiple_signup=YesNoFieldWidget)
+    show_slot_names = schema.Bool(
+        title = _(u"Show Individual Time Slot Names"),
+        description=_(u"Whether or not to show individual slot names."),
+        default=False,
+        
+        )
+        
+class IAppointmentDay(form.Schema):
+    appointment_date = schema.Date(
+        title=_(u'Visit Date'),
+        description=_(u'The date of this visit'),
+        )
+
+    #Quick fix until context is properly implemented
+    form.mode(include_weekends='hidden')
+    include_weekends = schema.Bool(
+        title=u'Include Weekends', 
+        description=u'Do you want to include weekends?'
+    )
+
+
+class ITimeSlot(form.Schema):
+
+    start=schema.Datetime(
+        title=_(u"Start Time"),
+        description=_(u"Start Time"),
+        required=True,
+    )
+    
+    end=schema.Datetime(
+        title=_(u"End Time"),
+        description=_(u"End Time"),
+        required=True,
+    )
+
+    name = schema.TextLine(
+        title=_(u"Appointment person"),
+        description=_(u"The person the appointment is with."),
+        required=False   
+    )
+    
+    max_capacity = schema.Int(
+        title=_(u"Max Capacity"),
+        description=_(u"Maximum number of people for this time slot"),
+        default=1,
+        required=True
+    )
+    
+    allow_waitlist = schema.Bool(
+        title=_(u"Allow Waiting List"),
+        description=_(u"Check if you want to allow signups to waiting list once max capacity is reached"),
+        required=False    
+    )
+
+    full = schema.Bool(
+        title=_(u"Is Max Capacity Filled?"),
+        description=_(u"Checks to see if Max Capacity is filled"),
+        required=False,
+        readonly=True
+    )
+
+
+
+    @invariant
+    def validateStartEnd(data):
+        if data.start is not None and data.end is not None:
+            if data.start > data.end:
+                raise StartBeforeEnd(_(u"The start time must be before the end time."))
+
+
+class IPerson(form.Schema):
+    enable_form_tabbing = interface.Attribute('False')
+
+    #form.fieldset('contact_info',
+        #label=_(u'Contact Information'),
+        #description=_(u"Please enter your contact information. You must enter either an email address or a phone number to reserve your spot."),
+        #fields=['email',
+                #'phone',
+                #]
+        #)
+        
+    first_name = schema.TextLine(
+        title=_(u"First Name"),
+        description=_(u"Please enter your first name"),
+        required=True
+    )
+    last_name = schema.TextLine(
+        title=_(u"Last Name"),
+        description=_(u"Please enter your last name"),
+        required=True
+    )
+    email=schema.TextLine(
+        title=_(u"Email"),
+        description=_(u"The email of the person making the the appointment."),
+        required=False,
+        constraint=validateEmailAddress,
+    )
+    
+    phone=schema.TextLine(
+        title=_(u"Phone"),
+        description=_(u"The phone of the person making the the appointment."),
+        required=False,
+        constraint=validatePhoneNumber,
+    )
+
+    ##Quick fix until context is properly implemented
+    #form.mode(start='hidden')
+    #start=schema.Datetime(
+        #title=_(u"Start Time"),
+        #description=_(u"Start Time"),
+        #required=True,
+    #)
+
+    ##Quick fix until context is properly implemented
+    #form.mode(end='hidden')
+    #end=schema.Datetime(
+        #title=_(u"End Time"),
+        #description=_(u"End Time"),
+        #required=True,
+    #)
+
+    @invariant
+    def validateSomeContact(data):
+        if data.phone is None and data.email is None:
+            raise NoContactInfo(_(u"Please provide either a phone or email."))
+
+
+#Unfortunately, we have to create two separate behaviors. I'm just going to do things this way even though it's not entirely kosher. Sorry Aspeli
+class ICloneDay(form.Schema): 
+    """Clone amount you want"""
+
+    include_weekends = schema.Bool(
+        title=u'Include Weekends', 
+        description=u'Do you want to include weekends?'
+    )
+
+    num_to_create = schema.TextLine(
+        title=_(u"How many of this item would you like to create?"),
+        description=_(u"The number of clones to create"),
+        required=True,
+    )
+
+class IClone(form.Schema):
+    """ Clone amount you want"""
+
+    num_to_create = schema.TextLine(
+        title=_(u"How many of this item would you like to create?"),
+        description=_(u"The number of clones to create"),
+        required=True,
+    )
+
+#Default values for forms
+@form.default_value(field=ITimeSlot['start'])
+def startDefaultValue(data):
+    # To get hold of the folder, do: context = data.context
+    return datetime.datetime.combine(data.context.appointment_date,datetime.time(9,0,0))
+
+
+@form.default_value(field=ITimeSlot['end'])
+def endDefaultValue(data):
+    # To get hold of the folder, do: context = data.context
+    return datetime.datetime.combine(data.context.appointment_date,datetime.time(10,0,0))

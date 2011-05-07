@@ -1,0 +1,4 @@
+plone.app.dexterity
+collective.autopermission
+collective.dexterity.more_widgets
+setuptools

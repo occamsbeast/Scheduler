@@ -1,0 +1,53 @@
+<div id="content" tal:define="global mre modules/re">
+    <h3>Appointment</h3>
+    <p><span tal:content="context/date_str">title Time</span></p>
+    <p><span tal:content="context/start_str">Start Time</span> to <span tal:content="context/end_str">End Time</span></p>
+    <form enctype="multipart/form-data" id="form" method="post" class="rowlike enableUnloadProtection  kssattr-formname-++add++collective.dexterity.appointments.person" tal:define="here_url context/@@plone_context_state/object_url;" tal:attributes="action string:$here_url/++add++collective.dexterity.appointments.person">
+    <!-- Default fieldset -->
+    <div id="formfield-form-widgets-first_name" class="field z3cformInlineValidation kssattr-fieldname-form.widgets.first_name">
+        <label class="horizontal" for="form-widgets-first_name">
+            First Name
+        </label>
+        <span style="color: red" title="Required" class="required horizontal">
+          ■
+        </span>
+        <div class="formHelp">Please enter your first name</div>
+        <div class="fieldErrorBox"></div>
+        <input type="text" value="" class="text-widget required textline-field" name="form.widgets.first_name" id="form-widgets-first_name">
+    </div>
+    <div id="formfield-form-widgets-last_name" class="field z3cformInlineValidation kssattr-fieldname-form.widgets.last_name">
+        <label class="horizontal" for="form-widgets-last_name">
+            Last Name
+        </label>
+        <span style="color: red" title="Required" class="required horizontal">
+          ■
+        </span>
+        <div class="formHelp">Please enter your last name</div>
+        <div class="fieldErrorBox"></div>
+        <input type="text" value="" class="text-widget required textline-field" name="form.widgets.last_name" id="form-widgets-last_name">
+    </div>
+
+    <div id="formfield-form-widgets-email" class="field z3cformInlineValidation kssattr-fieldname-form.widgets.email">
+        <label class="horizontal" for="form-widgets-email">
+            Email
+        </label>
+        <div class="formHelp">The email of the person making the the appointment.</div>
+        <div class="fieldErrorBox"></div>
+        <input type="text" value="" class="text-widget textline-field" name="form.widgets.email" id="form-widgets-email">
+    </div>
+      <div id="formfield-form-widgets-phone" class="field z3cformInlineValidation kssattr-fieldname-form.widgets.phone">
+        <label class="horizontal" for="form-widgets-phone">
+            Phone
+        </label>
+        <div class="formHelp">The phone of the person making the the appointment.</div>
+        <div class="fieldErrorBox"></div>
+        <input type="text" value="" class="text-widget textline-field" name="form.widgets.phone" id="form-widgets-phone">
+    </div>
+    <!-- Secondary fieldsets -->
+    <div class="formControls">
+        <input type="submit" value="Save" class="submit-widget button-field context" name="form.buttons.save" id="form-buttons-save">
+    </div>
+    </form>
+</div>
+
+<script type="text/javascript" src="solgemafullcalendarperson.js"></script>

@@ -1,0 +1,15 @@
+README.txt
+setup.py
+src/collective/__init__.py
+src/collective.dexterity.more_widgets.egg-info/PKG-INFO
+src/collective.dexterity.more_widgets.egg-info/SOURCES.txt
+src/collective.dexterity.more_widgets.egg-info/dependency_links.txt
+src/collective.dexterity.more_widgets.egg-info/entry_points.txt
+src/collective.dexterity.more_widgets.egg-info/namespace_packages.txt
+src/collective.dexterity.more_widgets.egg-info/not-zip-safe
+src/collective.dexterity.more_widgets.egg-info/requires.txt
+src/collective.dexterity.more_widgets.egg-info/top_level.txt
+src/collective/dexterity/__init__.py
+src/collective/dexterity/more_widgets/__init__.py
+src/collective/dexterity/more_widgets/tests.py
+src/collective/dexterity/more_widgets/widgets.py

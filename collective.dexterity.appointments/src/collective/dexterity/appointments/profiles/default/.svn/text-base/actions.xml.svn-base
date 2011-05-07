@@ -1,0 +1,34 @@
+<?xml version="1.0"?>
+<object xmlns:i18n="http://xml.zope.org/namespaces/i18n" name="portal_actions" meta_type="Plone Actions Tool">
+  <action-provider name="portal_actions"/>
+  <object name="object" meta_type="CMF Action Category">
+    <property name="title"/>
+    <object name="clone" meta_type="CMF Action">
+      <property name="title">Clone</property>
+      <property name="description"/>
+      <property name="url_expr">string:@@clone</property>
+      <property name="icon_expr"/>
+      <property name="available_expr">python:object.Type() in ['Appointment Day', 'Time Slot']</property>
+      <property name="permissions">
+        <element value="Manage portal"/>
+        <element value="collective.dexterity.appointments: Manage Schedule"/>
+      </property>
+      <property name="visible">True</property>
+    </object>
+  </object>
+
+ <object name="user" meta_type="CMF Action Category">
+  <object name="ora_sync" meta_type="CMF Action" i18n:domain="plone">
+   <property name="title" i18n:translate="">PRA</property>
+   <property name="description" i18n:translate="">ORA site synchronization status</property>
+   <property name="url_expr">string:${portal_url}/@@syncall</property>
+   <property name="icon_expr"></property>
+   <property name="available_expr"></property>
+   <property name="permissions">
+    <element value="Manage portal"/>
+   </property>
+   <property name="visible">True</property>
+  </object>
+ </object>
+
+</object>

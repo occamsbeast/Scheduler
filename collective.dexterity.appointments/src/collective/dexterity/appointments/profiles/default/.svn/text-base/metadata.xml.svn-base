@@ -1,0 +1,7 @@
+<metadata>
+  <!-- This is a revision number independent of the product number -->
+  <version>01</version>
+    <dependencies>
+        <dependency>profile-plone.app.dexterity:default</dependency>
+    </dependencies>
+</metadata>

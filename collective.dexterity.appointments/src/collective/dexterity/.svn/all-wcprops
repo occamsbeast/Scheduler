@@ -1,0 +1,13 @@
+END
+clone.py
+K 25
+svn:wc:ra_dav:version-url
+V 127
+/P01svn/!svn/ver/2795/plone4_eggs/collective.dexterity.appointments/branches/steven_scheduler/src/collective/dexterity/clone.py
+END
+__init__.pyc
+K 25
+svn:wc:ra_dav:version-url
+V 131
+/P01svn/!svn/ver/2795/plone4_eggs/collective.dexterity.appointments/branches/steven_scheduler/src/collective/dexterity/__init__.pyc
+END

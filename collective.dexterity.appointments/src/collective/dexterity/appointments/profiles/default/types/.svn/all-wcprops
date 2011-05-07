@@ -1,0 +1,13 @@
+END
+collective.dexterity.appointments.appointmentday.xml
+K 25
+svn:wc:ra_dav:version-url
+V 207
+/P01svn/!svn/ver/2795/plone4_eggs/collective.dexterity.appointments/branches/steven_scheduler/src/collective/dexterity/appointments/profiles/default/types/collective.dexterity.appointments.appointmentday.xml
+END
+collective.dexterity.appointments.timeslot.xml
+K 25
+svn:wc:ra_dav:version-url
+V 201
+/P01svn/!svn/ver/2795/plone4_eggs/collective.dexterity.appointments/branches/steven_scheduler/src/collective/dexterity/appointments/profiles/default/types/collective.dexterity.appointments.timeslot.xml
+END

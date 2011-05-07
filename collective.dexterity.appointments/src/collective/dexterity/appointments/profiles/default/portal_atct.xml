@@ -1,0 +1,15 @@
+<?xml version="1.0"?>
+<atcttool xmlns:i18n="http://xml.zope.org/namespaces/i18n">
+
+  <topic_indexes i18n:domain="plone">
+    <index name="full" description="timeslot's max_capacity full" enabled="True" friendlyName="Timeslot Full">
+      <criteria>ATBooleanCriterion</criteria>
+    </index>
+
+    <index name="max_capacity" description="object's max_capacity" enabled="True" friendlyName="timeslot's max_capacity">
+      <criteria>ATSimpleIntCriterion</criteria>
+    </index>
+
+  </topic_indexes>
+
+</atcttool>

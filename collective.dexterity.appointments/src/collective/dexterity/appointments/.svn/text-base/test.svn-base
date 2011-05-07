@@ -1,0 +1,2 @@
+self.parent.invokeFactory('collective.dexterity.appointments.timeslot', id, start_time=start_time, end_time=end_time, name=name,max_capacity=max_capacity,allow_waitlist=allow_waiting)
+

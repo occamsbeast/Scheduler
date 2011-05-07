@@ -1,0 +1,37 @@
+END
+test
+K 25
+svn:wc:ra_dav:version-url
+V 136
+/P01svn/!svn/ver/2795/plone4_eggs/collective.dexterity.appointments/branches/steven_scheduler/src/collective/dexterity/appointments/test
+END
+configure.zcml
+K 25
+svn:wc:ra_dav:version-url
+V 146
+/P01svn/!svn/ver/2893/plone4_eggs/collective.dexterity.appointments/branches/steven_scheduler/src/collective/dexterity/appointments/configure.zcml
+END
+__init__.pyc
+K 25
+svn:wc:ra_dav:version-url
+V 144
+/P01svn/!svn/ver/2795/plone4_eggs/collective.dexterity.appointments/branches/steven_scheduler/src/collective/dexterity/appointments/__init__.pyc
+END
+behaviors.py
+K 25
+svn:wc:ra_dav:version-url
+V 144
+/P01svn/!svn/ver/2893/plone4_eggs/collective.dexterity.appointments/branches/steven_scheduler/src/collective/dexterity/appointments/behaviors.py
+END
+interfaces.py
+K 25
+svn:wc:ra_dav:version-url
+V 145
+/P01svn/!svn/ver/2893/plone4_eggs/collective.dexterity.appointments/branches/steven_scheduler/src/collective/dexterity/appointments/interfaces.py
+END
+interfaces.pyc
+K 25
+svn:wc:ra_dav:version-url
+V 146
+/P01svn/!svn/ver/2893/plone4_eggs/collective.dexterity.appointments/branches/steven_scheduler/src/collective/dexterity/appointments/interfaces.pyc
+END

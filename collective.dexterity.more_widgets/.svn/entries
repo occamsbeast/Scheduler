@@ -1,0 +1,82 @@
+8
+
+dir
+2692
+http://octamonkey/P01svn/plone4_eggs/collective.dexterity.more_widgets/trunk
+http://octamonkey/P01svn
+
+
+
+2011-04-18T18:51:09.728946Z
+2666
+dmote
+has-props
+
+svn:special svn:externals svn:needs-lock
+
+
+
+
+
+
+
+
+
+
+
+e1501062-922a-40b7-99f0-4c49735c1ca7
+
+.project
+file
+
+
+
+
+2011-04-19T20:53:31.000000Z
+7e367f2a87777561dde8d48ad360fe63
+2011-04-18T18:48:42.970241Z
+2665
+dmote
+
+.pydevproject
+file
+
+
+
+
+2011-04-19T20:53:32.000000Z
+32427d226a83ef8d129085b65bf453c8
+2011-04-18T18:48:42.970241Z
+2665
+dmote
+
+README.txt
+file
+
+
+
+
+2011-04-19T20:53:32.000000Z
+0ebe3c78a74f624a96236aebd249e966
+2011-04-18T18:48:42.970241Z
+2665
+dmote
+
+docs
+dir
+
+setup.py
+file
+
+
+
+
+2011-04-19T20:53:31.000000Z
+6fcb98295f26e10e215fa693a5e737ac
+2011-04-18T18:48:42.970241Z
+2665
+dmote
+
+src
+dir
+
